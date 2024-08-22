@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyWidget());
+  runApp(const MaterialApp(home: MyWidget()));
 }
 
 class MyWidget extends StatefulWidget {
@@ -18,20 +18,104 @@ class _MyWidgetState extends State<MyWidget> {
 
   int Index = -1;
 
+  void openDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: const Text('New Record'),
+              content: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)))),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: amoutController,
+                      keyboardType: TextInputType.number,
+                      maxLength: 15,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)))),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        String name = nameController.text.trim();
+                        String amount = amoutController.text.trim();
+                        if (name.isNotEmpty && amount.isNotEmpty) {
+                          setState(() {
+                            expenses.add(Expenses(
+                                name: name, amount: int.parse(amount)));
+                            nameController.clear();
+                            amoutController.clear();
+                          });
+                        }
+                      },
+                      child: const Text(
+                        'SAVE',
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        String name = nameController.text.trim();
+                        String amount = amoutController.text.trim();
+                        if (name.isNotEmpty && amount.isNotEmpty) {
+                          setState(() {
+                            expenses[Index].name = name;
+                            expenses[Index].amount = int.parse(amount);
+                            Index = -1;
+
+                            nameController.clear();
+                            amoutController.clear();
+                          });
+                        }
+                      },
+                      child: const Text('UPDATE'),
+                    ),
+                  ],
+                ),
+              ]);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    /* return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Center(
-            child: Text("FERUZI"),
-          ),
-          backgroundColor: Colors.cyan[300],
+      home:*/
+    return Directionality(
+      appBar: AppBar(
+        title: const Center(
+          child: Text("FERUZI"),
         ),
-        body: Column(
-          children: [
-            Padding(
+        backgroundColor: Colors.cyan[300],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: openDialog,
+        child: const Icon(Icons.add),
+      ),
+      body: Column(
+        children: [
+          /* Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: nameController,
@@ -92,23 +176,23 @@ class _MyWidgetState extends State<MyWidget> {
                   child: const Text('UPDATE'),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            expenses.isEmpty
-                ? const Text('No data found')
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: expenses.length,
-                      itemBuilder: (context, index) => getList(index),
-                    ),
-                  )
-          ],
-        ),
-        backgroundColor: Colors.grey[400],
+            ),*/
+          const SizedBox(
+            height: 12,
+          ),
+          expenses.isEmpty
+              ? const Text('No data found')
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: expenses.length,
+                    itemBuilder: (context, index) => getList(index),
+                  ),
+                ),
+        ],
       ),
+      backgroundColor: Colors.grey[400],
     );
+    //);
   }
 
   Widget getList(int index) {
