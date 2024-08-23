@@ -99,100 +99,36 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    /* return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home:*/
-    return Directionality(
-      appBar: AppBar(
-        title: const Center(
-          child: Text("FERUZI"),
-        ),
-        backgroundColor: Colors.cyan[300],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: openDialog,
-        child: const Icon(Icons.add),
-      ),
-      body: Column(
-        children: [
-          /* Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)))),
-              ),
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Center(
+              child: Text("FERUZI"),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: amoutController,
-                keyboardType: TextInputType.number,
-                maxLength: 15,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)))),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    String name = nameController.text.trim();
-                    String amount = amoutController.text.trim();
-                    if (name.isNotEmpty && amount.isNotEmpty) {
-                      setState(() {
-                        expenses.add(
-                            Expenses(name: name, amount: int.parse(amount)));
-                        nameController.clear();
-                        amoutController.clear();
-                      });
-                    }
-                  },
-                  child: const Text(
-                    'SAVE',
-                  ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    String name = nameController.text.trim();
-                    String amount = amoutController.text.trim();
-                    if (name.isNotEmpty && amount.isNotEmpty) {
-                      setState(() {
-                        expenses[Index].name = name;
-                        expenses[Index].amount = int.parse(amount);
-                        Index = -1;
-
-                        nameController.clear();
-                        amoutController.clear();
-                      });
-                    }
-                  },
-                  child: const Text('UPDATE'),
-                ),
-              ],
-            ),*/
-          const SizedBox(
-            height: 12,
+            backgroundColor: Colors.cyan[300],
           ),
-          expenses.isEmpty
-              ? const Text('No data found')
-              : Expanded(
-                  child: ListView.builder(
-                    itemCount: expenses.length,
-                    itemBuilder: (context, index) => getList(index),
-                  ),
-                ),
-        ],
-      ),
-      backgroundColor: Colors.grey[400],
-    );
-    //);
+          floatingActionButton: FloatingActionButton(
+            onPressed: openDialog,
+            child: const Icon(Icons.add),
+          ),
+          body: Column(
+            children: [
+              const SizedBox(
+                height: 12,
+              ),
+              expenses.isEmpty
+                  ? const Text('No data found')
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: expenses.length,
+                        itemBuilder: (context, index) => getList(index),
+                      ),
+                    ),
+            ],
+          ),
+          backgroundColor: Colors.grey[400],
+        ));
   }
 
   Widget getList(int index) {
