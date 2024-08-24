@@ -18,7 +18,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   int Index = -1;
 
-  void openDialog() {
+  void createRecord() {
     showDialog(
         context: context,
         builder: (context) {
@@ -62,10 +62,11 @@ class _MyWidgetState extends State<MyWidget> {
                           setState(() {
                             expenses.add(Expenses(
                                 name: name, amount: int.parse(amount)));
-                            nameController.clear();
-                            amoutController.clear();
                           });
+                          nameController.clear();
+                          amoutController.clear();
                         }
+                        Navigator.of(context).pop();
                       },
                       child: const Text(
                         'SAVE',
@@ -74,6 +75,54 @@ class _MyWidgetState extends State<MyWidget> {
                     const SizedBox(
                       width: 12,
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                  ],
+                ),
+              ]);
+        });
+  }
+
+  void updateRecord() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: const Text('Update Record'),
+              content: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)))),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: amoutController,
+                      keyboardType: TextInputType.number,
+                      maxLength: 15,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)))),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     ElevatedButton(
                       onPressed: () {
                         String name = nameController.text.trim();
@@ -88,8 +137,20 @@ class _MyWidgetState extends State<MyWidget> {
                             amoutController.clear();
                           });
                         }
+                        Navigator.of(context).pop();
                       },
-                      child: const Text('UPDATE'),
+                      child: const Text(
+                        'UPDATE',
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Cancel'),
                     ),
                   ],
                 ),
@@ -109,7 +170,7 @@ class _MyWidgetState extends State<MyWidget> {
             backgroundColor: Colors.cyan[300],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: openDialog,
+            onPressed: createRecord,
             child: const Icon(Icons.add),
           ),
           body: Column(
@@ -171,6 +232,7 @@ class _MyWidgetState extends State<MyWidget> {
                           amoutController.text =
                               expenses[index].amount.toString();
                           setState(() {
+                            updateRecord();
                             Index = index;
                           });
                         },
