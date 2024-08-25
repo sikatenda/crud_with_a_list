@@ -18,6 +18,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   int Index = -1;
 
+//dialog to create new record
   void createRecord() {
     showDialog(
         context: context,
@@ -68,6 +69,9 @@ class _MyWidgetState extends State<MyWidget> {
                         }
                         Navigator.of(context).pop();
                       },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          textStyle: const TextStyle(color: Colors.white60)),
                       child: const Text(
                         'SAVE',
                       ),
@@ -79,6 +83,9 @@ class _MyWidgetState extends State<MyWidget> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          textStyle: const TextStyle(color: Colors.white)),
                       child: const Text('Cancel'),
                     ),
                   ],
@@ -87,6 +94,7 @@ class _MyWidgetState extends State<MyWidget> {
         });
   }
 
+//dialog to update a record
   void updateRecord() {
     showDialog(
         context: context,
@@ -139,6 +147,9 @@ class _MyWidgetState extends State<MyWidget> {
                         }
                         Navigator.of(context).pop();
                       },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          textStyle: const TextStyle(color: Colors.white)),
                       child: const Text(
                         'UPDATE',
                       ),
@@ -150,6 +161,9 @@ class _MyWidgetState extends State<MyWidget> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          textStyle: const TextStyle(color: Colors.white)),
                       child: const Text('Cancel'),
                     ),
                   ],
@@ -179,7 +193,12 @@ class _MyWidgetState extends State<MyWidget> {
                 height: 12,
               ),
               expenses.isEmpty
-                  ? const Text('No data found')
+                  ? const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('No data found'),
+                      ],
+                    )
                   : Expanded(
                       child: ListView.builder(
                         itemCount: expenses.length,
@@ -223,8 +242,8 @@ class _MyWidgetState extends State<MyWidget> {
                     Text(expenses[index].amount.toString()),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                /* Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     IconButton(
                         onPressed: () {
@@ -245,8 +264,11 @@ class _MyWidgetState extends State<MyWidget> {
                         },
                         icon: const Icon(Icons.delete)),
                   ],
-                ),
+                ),*/
               ],
+            ),
+            trailing: Column(
+              children: [],
             ),
           ),
         ],
