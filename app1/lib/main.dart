@@ -32,6 +32,7 @@ class _MyWidgetState extends State<MyWidget> {
                     child: TextField(
                       controller: nameController,
                       decoration: const InputDecoration(
+                          hintText: 'Name',
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12)))),
@@ -44,6 +45,7 @@ class _MyWidgetState extends State<MyWidget> {
                       keyboardType: TextInputType.number,
                       maxLength: 15,
                       decoration: const InputDecoration(
+                          hintText: 'Amount',
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12)))),
@@ -63,6 +65,9 @@ class _MyWidgetState extends State<MyWidget> {
                           setState(() {
                             expenses.add(Expenses(
                                 name: name, amount: int.parse(amount)));
+
+                            nameController.clear();
+                            amoutController.clear();
                           });
                           nameController.clear();
                           amoutController.clear();
@@ -216,61 +221,57 @@ class _MyWidgetState extends State<MyWidget> {
       child: Column(
         children: [
           ListTile(
-            leading: CircleAvatar(
-              backgroundColor: index % 2 == 0 ? Colors.amber : Colors.blue,
-              foregroundColor: Colors.black87,
-              child: Text(
-                expenses[index].name[0],
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              leading: CircleAvatar(
+                backgroundColor: index % 2 == 0 ? Colors.amber : Colors.blue,
+                foregroundColor: Colors.black87,
+                child: Text(
+                  expenses[index].name[0],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      expenses[index].name,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(expenses[index].amount.toString()),
-                  ],
-                ),
-                /* Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          nameController.text = expenses[index].name;
-                          amoutController.text =
-                              expenses[index].amount.toString();
-                          setState(() {
-                            updateRecord();
-                            Index = index;
-                          });
-                        },
-                        icon: const Icon(Icons.edit)),
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            expenses.removeAt(index);
-                          });
-                        },
-                        icon: const Icon(Icons.delete)),
-                  ],
-                ),*/
-              ],
-            ),
-            trailing: Column(
-              children: [],
-            ),
-          ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        expenses[index].name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(expenses[index].amount.toString()),
+                    ],
+                  ),
+                ],
+              ),
+              trailing: Wrap(
+                alignment: WrapAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        nameController.text = expenses[index].name;
+                        amoutController.text =
+                            expenses[index].amount.toString();
+                        setState(() {
+                          updateRecord();
+                          Index = index;
+                        });
+                      },
+                      icon: const Icon(Icons.edit)),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          expenses.removeAt(index);
+                        });
+                      },
+                      icon: const Icon(Icons.delete)),
+                ],
+              )),
         ],
       ),
     );
