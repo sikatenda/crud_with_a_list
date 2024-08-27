@@ -12,8 +12,11 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
+  //text edit controller for expense name
   TextEditingController nameController = TextEditingController();
+  //text edit controller for expense amount
   TextEditingController amoutController = TextEditingController();
+  //list of expenses
   List<Expenses> expenses = List.empty(growable: true);
 
   int Index = -1;
@@ -24,11 +27,13 @@ class _MyWidgetState extends State<MyWidget> {
         context: context,
         builder: (context) {
           return AlertDialog(
+              //dialog box to create a new record
               title: const Text('New Record'),
               content: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    //input environment for the user to input the expense name
                     child: TextField(
                       controller: nameController,
                       decoration: const InputDecoration(
@@ -40,8 +45,10 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    //input environment for the user to input the expense amount
                     child: TextField(
                       controller: amoutController,
+                      //get the input numbers only from the keyboard
                       keyboardType: TextInputType.number,
                       maxLength: 15,
                       decoration: const InputDecoration(
@@ -57,6 +64,7 @@ class _MyWidgetState extends State<MyWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //button to save the user input
                     ElevatedButton(
                       onPressed: () {
                         String name = nameController.text.trim();
@@ -85,6 +93,7 @@ class _MyWidgetState extends State<MyWidget> {
                       width: 12,
                     ),
                     ElevatedButton(
+                      //button to cancel the capturing process and close the dialog box
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -105,11 +114,13 @@ class _MyWidgetState extends State<MyWidget> {
         context: context,
         builder: (context) {
           return AlertDialog(
+              //dialog box to update an existing record
               title: const Text('Update Record'),
               content: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    //input envoronment to update the name of the record
                     child: TextField(
                       controller: nameController,
                       decoration: const InputDecoration(
@@ -120,6 +131,7 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    //input envoronment to update the amount of the record
                     child: TextField(
                       controller: amoutController,
                       keyboardType: TextInputType.number,
@@ -136,6 +148,7 @@ class _MyWidgetState extends State<MyWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //button to update an existing record
                     ElevatedButton(
                       onPressed: () {
                         String name = nameController.text.trim();
@@ -162,6 +175,7 @@ class _MyWidgetState extends State<MyWidget> {
                     const SizedBox(
                       width: 4,
                     ),
+                    //button to cancel the updating process and close the dialog box
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -184,10 +198,11 @@ class _MyWidgetState extends State<MyWidget> {
         home: Scaffold(
           appBar: AppBar(
             title: const Center(
-              child: Text("FERUZI"),
+              child: Text("EXPENSES"), //the app title
             ),
             backgroundColor: Colors.cyan[300],
           ),
+          //button to open the dialog box for creating a new record
           floatingActionButton: FloatingActionButton(
             onPressed: createRecord,
             child: const Icon(Icons.add),
@@ -197,6 +212,7 @@ class _MyWidgetState extends State<MyWidget> {
               const SizedBox(
                 height: 12,
               ),
+              //display "No data found" when list is empty
               expenses.isEmpty
                   ? const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -205,6 +221,7 @@ class _MyWidgetState extends State<MyWidget> {
                       ],
                     )
                   : Expanded(
+                      //list view builder
                       child: ListView.builder(
                         itemCount: expenses.length,
                         itemBuilder: (context, index) => getList(index),
@@ -220,6 +237,7 @@ class _MyWidgetState extends State<MyWidget> {
     return Card(
       child: Column(
         children: [
+          //listile
           ListTile(
               leading: CircleAvatar(
                 backgroundColor: index % 2 == 0 ? Colors.amber : Colors.blue,
@@ -252,6 +270,7 @@ class _MyWidgetState extends State<MyWidget> {
               trailing: Wrap(
                 alignment: WrapAlignment.end,
                 children: [
+                  //icon to open a dialog box and update an exixting record
                   IconButton(
                       onPressed: () {
                         nameController.text = expenses[index].name;
@@ -263,6 +282,7 @@ class _MyWidgetState extends State<MyWidget> {
                         });
                       },
                       icon: const Icon(Icons.edit)),
+                  //icon to delete an exixting record
                   IconButton(
                       onPressed: () {
                         setState(() {
