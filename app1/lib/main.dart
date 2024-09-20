@@ -16,9 +16,8 @@ class _MyWidgetState extends State<MyWidget> {
   TextEditingController nameController = TextEditingController();
   //text edit controller for expense amount
   TextEditingController amoutController = TextEditingController();
-  //list of expenses
-  //
 
+  //list of expenses
   List<Expenses> expenses = List.empty(growable: true);
 
   int Index = -1;
